@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>IMC App</title>
+<title>IMC & Salud</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f2f2f2;
+  background: #f4f6f8;
 }
 
 header {
@@ -20,13 +20,8 @@ header {
   font-weight: bold;
 }
 
-.page {
-  display: none;
+.container {
   padding: 20px;
-}
-
-.page.active {
-  display: block;
 }
 
 input, select, button {
@@ -48,24 +43,21 @@ button {
   border-radius: 10px;
   margin-top: 15px;
 }
+
+.hidden {
+  display: none;
+}
 </style>
 </head>
 
 <body>
 
-<header>IMC & Salud</header>
+<header>Calculadora IMC</header>
 
-<!-- LOGIN -->
-<div id="login" class="page active">
-  <h3>Registro</h3>
-  <input id="usuario" placeholder="Correo o número">
-  <button onclick="irDatos()">Continuar</button>
-</div>
+<div class="container">
 
 <!-- DATOS -->
-<div id="datos" class="page">
-  <h3>Datos personales</h3>
-
+<div id="datos">
   <select id="sexo">
     <option value="h">Hombre</option>
     <option value="m">Mujer</option>
@@ -76,29 +68,85 @@ button {
   <input id="talla" type="number" placeholder="Talla (cm)">
 
   <select id="actividad">
-    <option value="1.2">Sedentario</option>
-    <option value="1.375">Ligero</option>
-    <option value="1.55">Moderado</option>
-    <option value="1.725">Intenso</option>
+    <option>Sedentario</option>
+    <option>Ligero</option>
+    <option>Moderado</option>
+    <option>Intenso</option>
   </select>
 
-  <button onclick="calcularIMC()">Calcular</button>
+  <button onclick="calcular()">Calcular</button>
 </div>
 
 <!-- RESULTADO -->
-<div id="resultado" class="page">
+<div id="resultado" class="hidden">
   <div class="card" id="resultadoTexto"></div>
-  <button onclick="irRutina()">Rutina</button>
-  <button onclick="irDieta()">Dieta</button>
+
+  <button onclick="mostrarRutina()">Rutina</button>
+  <button onclick="mostrarDieta()">Dieta</button>
 </div>
 
 <!-- RUTINA -->
-<div id="rutina" class="page">
-  <h3>Rutina</h3>
-  <p>🏠 Casa: sentadillas, planchas, flexiones</p>
-  <p>🏋️ Gimnasio: pesas, cardio</p>
-  <button onclick="volver()">Volver</button>
+<div id="rutina" class="hidden">
+  <div class="card">
+    <h3>Rutina semanal</h3>
+    <p><b>Lunes:</b> Sentadillas – Flexiones</p>
+    <p><b>Martes:</b> Caminata 30 min</p>
+    <p><b>Miércoles:</b> Plancha – Abdominales</p>
+    <p><b>Jueves:</b> Cardio ligero</p>
+    <p><b>Viernes:</b> Fuerza general</p>
+    <p><b>Sábado:</b> Estiramientos</p>
+    <p><b>Domingo:</b> Descanso</p>
+  </div>
 </div>
 
 <!-- DIETA -->
-<
+<div id="dieta" class="hidden">
+  <div class="card">
+    <h3>Dieta semanal (mixta)</h3>
+    <p><b>Lunes:</b> Pollo + arroz + verduras</p>
+    <p><b>Martes:</b> Pescado + ensalada</p>
+    <p><b>Miércoles:</b> Lentejas + huevo</p>
+    <p><b>Jueves:</b> Carne + papa</p>
+    <p><b>Viernes:</b> Pasta integral</p>
+    <p><b>Sábado:</b> Libre controlado</p>
+    <p><b>Domingo:</b> Ligero</p>
+  </div>
+</div>
+
+</div>
+
+<script>
+function calcular() {
+  var peso = document.getElementById("peso").value;
+  var talla = document.getElementById("talla").value;
+
+  if (peso === "" || talla === "") {
+    alert("Completa peso y talla");
+    return;
+  }
+
+  var imc = peso / ((talla / 100) * (talla / 100));
+  imc = imc.toFixed(1);
+
+  var clas = "Peso normal";
+  if (imc < 18.5) clas = "Bajo peso";
+  else if (imc >= 25 && imc < 30) clas = "Sobrepeso";
+  else if (imc >= 30) clas = "Obesidad";
+
+  document.getElementById("resultadoTexto").innerHTML =
+    "<h3>Resultado</h3><p>IMC: <b>" + imc + "</b></p><p>" + clas + "</p>";
+
+  document.getElementById("resultado").classList.remove("hidden");
+}
+
+function mostrarRutina() {
+  document.getElementById("rutina").classList.remove("hidden");
+}
+
+function mostrarDieta() {
+  document.getElementById("dieta").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
