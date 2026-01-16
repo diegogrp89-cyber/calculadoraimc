@@ -1,0 +1,321 @@
+diegogrp89-cyber
+calculadoraimc
+Repository navigation
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Settings
+calculadoraimc
+/
+Name your file...
+in
+main
+
+Edit
+
+Preview
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Aplicación IMC y Calorías</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2ecc71">
+
+<style>
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+}
+
+.app {
+  max-width: 420px;
+  margin: auto;
+  background: #fff;
+  min-height: 100vh;
+}
+
+header {
+  background: #2ecc71;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.container {
+  padding: 15px;
+}
+
+label {
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.result {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.green { background: #2ecc71; }
+.yellow { background: #f1c40f; color:#000; }
+.red { background: #e74c3c; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  font-size: 13px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+<header>Calculadora IMC & Calorías</header>
+
+<div class="container">
+
+<label>Sexo</label>
+<select id="sexo">
+  <option value="h">Hombre</option>
+  <option value="m">Mujer</option>
+</select>
+
+<label>Edad</label>
+<input type="number" id="edad">
+
+<label>Peso (kg)</label>
+<input type="number" id="peso">
+
+<label>Talla (cm)</label>
+<input type="number" id="talla">
+
+<label>Actividad física</label>
+<select id="actividad">
+  <option value="1.2">Sedentario</option>
+  <option value="1.375">Ligero</option>
+  <option value="1.55">Moderado</option>
+  <option value="1.725">Intenso</option>
+</select>
+
+<button onclick="calcular()">Calcular</button>
+
+<div id="resultado"></div>
+<div id="tabla"></div>
+
+</div>
+</div>
+
+<script>
+function calcular() {
+  const peso = +document.getElementById("peso").value;
+  const talla = +document.getElementById("talla").value;
+  const edad = +document.getElementById("edad").value;
+  const sexo = document.getElementById("sexo").value;
+  const actividad = +document.getElementById("actividad").value;
+
+  if (!peso || !talla || !edad) {
+    alert("Complete todos los campos");
+    return;
+  }
+
+  const imc = (peso / ((talla/100) ** 2)).toFixed(1);
+
+  let clas = "Normal", color = "green";
+  if (imc < 18.5) { clas = "Bajo peso"; color = "yellow"; }
+  else if (imc >= 25 && imc < 30) { clas = "Sobrepeso"; color = "yellow"; }
+  else if (imc >= 30) { clas = "Obesidad"; color = "red"; }
+
+  document.getElementById("resultado").innerHTML = `
+    <div class="result ${color}">
+      IMC: <b>${imc}</b> (${clas})
+    </div>
+  `;
+}
+</script>
+</body>
+</html>
