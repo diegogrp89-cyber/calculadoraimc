@@ -7,34 +7,32 @@
 
 <style>
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   margin: 0;
-  background: #f4f6f8;
-}
-
-.screen {
-  display: none;
-  padding: 20px;
-}
-
-.active {
-  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f2f2f2;
 }
 
 header {
   background: #2ecc71;
-  color: #fff;
-  padding: 15px;
+  color: white;
   text-align: center;
+  padding: 15px;
   font-weight: bold;
+}
+
+.page {
+  display: none;
+  padding: 20px;
+}
+
+.page.active {
+  display: block;
 }
 
 input, select, button {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
   font-size: 16px;
 }
 
@@ -42,13 +40,12 @@ button {
   background: #2ecc71;
   color: white;
   border: none;
-  font-weight: bold;
 }
 
 .card {
   background: white;
   padding: 15px;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-top: 15px;
 }
 </style>
@@ -59,14 +56,14 @@ button {
 <header>IMC & Salud</header>
 
 <!-- LOGIN -->
-<div id="login" class="screen active">
+<div id="login" class="page active">
   <h3>Registro</h3>
-  <input id="user" placeholder="Correo o número">
-  <button onclick="login()">Continuar</button>
+  <input id="usuario" placeholder="Correo o número">
+  <button onclick="irDatos()">Continuar</button>
 </div>
 
 <!-- DATOS -->
-<div id="datos" class="screen">
+<div id="datos" class="page">
   <h3>Datos personales</h3>
 
   <select id="sexo">
@@ -85,19 +82,23 @@ button {
     <option value="1.725">Intenso</option>
   </select>
 
-  <button onclick="calcular()">Calcular</button>
+  <button onclick="calcularIMC()">Calcular</button>
 </div>
 
 <!-- RESULTADO -->
-<div id="resultado" class="screen">
-  <div class="card" id="resultadoCard"></div>
-
-  <button onclick="mostrarRutina()">Rutina</button>
-  <button onclick="mostrarDieta()">Dieta</button>
+<div id="resultado" class="page">
+  <div class="card" id="resultadoTexto"></div>
+  <button onclick="irRutina()">Rutina</button>
+  <button onclick="irDieta()">Dieta</button>
 </div>
 
 <!-- RUTINA -->
-<div id="rutina" class="screen">
+<div id="rutina" class="page">
   <h3>Rutina</h3>
-  <p>🏠 En casa: sentadillas, planchas, flexiones</p>
-  <p>🏋️ Gimnasio: press, peso muerto, cardio</p
+  <p>🏠 Casa: sentadillas, planchas, flexiones</p>
+  <p>🏋️ Gimnasio: pesas, cardio</p>
+  <button onclick="volver()">Volver</button>
+</div>
+
+<!-- DIETA -->
+<
