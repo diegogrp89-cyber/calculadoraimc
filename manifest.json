@@ -1,0 +1,8 @@
+{
+  "name": "Calculadora IMC y Calorías",
+  "short_name": "IMC App",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2ecc71"
+}
