@@ -2,149 +2,101 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Aplicación IMC y Calorías</title>
+<title>IMC & Salud</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#2ecc71">
 
 <style>
-body {
+body{
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
+  margin:0;
+  background:#f4f6f8;
 }
-
-.app {
-  max-width: 420px;
-  margin: auto;
-  background: #fff;
-  min-height: 100vh;
+.app{
+  max-width:420px;
+  margin:auto;
+  background:#fff;
+  min-height:100vh;
 }
-
-header {
-  background: #2ecc71;
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-  font-weight: bold;
+header{
+  background:#2ecc71;
+  color:#fff;
+  text-align:center;
+  padding:15px;
+  font-weight:bold;
 }
-
-.container {
-  padding: 15px;
+.container{
+  padding:15px;
 }
-
-label {
-  font-weight: 600;
-  margin-top: 10px;
-  display: block;
+input, select, button{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border-radius:8px;
+  border:1px solid #ccc;
 }
-
-input, select, button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+button{
+  background:#2ecc71;
+  color:#fff;
+  border:none;
+  font-weight:bold;
 }
-
-button {
-  background: #2ecc71;
-  color: #fff;
-  border: none;
-  margin-top: 15px;
-  font-weight: bold;
-}
-
-.result {
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 10px;
-  color: #fff;
-}
-
-.green { background: #2ecc71; }
-.yellow { background: #f1c40f; color:#000; }
-.red { background: #e74c3c; }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 6px;
-  font-size: 13px;
-  text-align: center;
+.hidden{ display:none; }
+.card{
+  background:#f1f1f1;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
 }
 </style>
 </head>
 
 <body>
 <div class="app">
-<header>Calculadora IMC & Calorías</header>
+<header>IMC & Salud</header>
 
-<div class="container">
-
-<label>Sexo</label>
-<select id="sexo">
-  <option value="h">Hombre</option>
-  <option value="m">Mujer</option>
-</select>
-
-<label>Edad</label>
-<input type="number" id="edad">
-
-<label>Peso (kg)</label>
-<input type="number" id="peso">
-
-<label>Talla (cm)</label>
-<input type="number" id="talla">
-
-<label>Actividad física</label>
-<select id="actividad">
-  <option value="1.2">Sedentario</option>
-  <option value="1.375">Ligero</option>
-  <option value="1.55">Moderado</option>
-  <option value="1.725">Intenso</option>
-</select>
-
-<button onclick="calcular()">Calcular</button>
-
-<div id="resultado"></div>
-<div id="tabla"></div>
-
-</div>
+<!-- REGISTRO -->
+<div id="registro" class="container">
+  <h3>Registro</h3>
+  <label>Correo o número</label>
+  <input type="text" id="contacto" placeholder="correo o celular">
+  <button onclick="registrar()">Ingresar</button>
 </div>
 
-<script>
-function calcular() {
-  const peso = +document.getElementById("peso").value;
-  const talla = +document.getElementById("talla").value;
-  const edad = +document.getElementById("edad").value;
-  const sexo = document.getElementById("sexo").value;
-  const actividad = +document.getElementById("actividad").value;
+<!-- DATOS -->
+<div id="datos" class="container hidden">
+  <h3>Datos personales</h3>
 
-  if (!peso || !talla || !edad) {
-    alert("Complete todos los campos");
-    return;
-  }
+  <label>Sexo</label>
+  <select id="sexo">
+    <option value="h">Hombre</option>
+    <option value="m">Mujer</option>
+  </select>
 
-  const imc = (peso / ((talla/100) ** 2)).toFixed(1);
+  <label>Edad</label>
+  <input type="number" id="edad">
 
-  let clas = "Normal", color = "green";
-  if (imc < 18.5) { clas = "Bajo peso"; color = "yellow"; }
-  else if (imc >= 25 && imc < 30) { clas = "Sobrepeso"; color = "yellow"; }
-  else if (imc >= 30) { clas = "Obesidad"; color = "red"; }
+  <label>Peso (kg)</label>
+  <input type="number" id="peso">
 
-  document.getElementById("resultado").innerHTML = `
-    <div class="result ${color}">
-      IMC: <b>${imc}</b> (${clas})
-    </div>
-  `;
-}
-</script>
-</body>
-</html>
+  <label>Talla (cm)</label>
+  <input type="number" id="talla">
+
+  <label>Actividad física</label>
+  <select id="actividad">
+    <option value="1.2">Sedentario</option>
+    <option value="1.375">Ligero</option>
+    <option value="1.55">Moderado</option>
+    <option value="1.725">Intenso</option>
+  </select>
+
+  <button onclick="calcular()">Calcular</button>
+</div>
+
+<!-- RESULTADO -->
+<div id="resultadoPantalla" class="container hidden">
+  <div id="resultado" class="card"></div>
+  <button onclick="mostrarRutin
+
