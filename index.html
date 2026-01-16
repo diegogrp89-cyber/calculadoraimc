@@ -2,16 +2,102 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Prueba</title>
+<title>IMC App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+}
+
+.screen {
+  display: none;
+  padding: 20px;
+}
+
+.active {
+  display: block;
+}
+
+header {
+  background: #2ecc71;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+button {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 15px;
+}
+</style>
 </head>
 
 <body>
-<h1>PRUEBA OK</h1>
 
-<button onclick="alert('FUNCIONA')">
-  Presióname
-</button>
+<header>IMC & Salud</header>
 
-</body>
-</html>
+<!-- LOGIN -->
+<div id="login" class="screen active">
+  <h3>Registro</h3>
+  <input id="user" placeholder="Correo o número">
+  <button onclick="login()">Continuar</button>
+</div>
+
+<!-- DATOS -->
+<div id="datos" class="screen">
+  <h3>Datos personales</h3>
+
+  <select id="sexo">
+    <option value="h">Hombre</option>
+    <option value="m">Mujer</option>
+  </select>
+
+  <input id="edad" type="number" placeholder="Edad">
+  <input id="peso" type="number" placeholder="Peso (kg)">
+  <input id="talla" type="number" placeholder="Talla (cm)">
+
+  <select id="actividad">
+    <option value="1.2">Sedentario</option>
+    <option value="1.375">Ligero</option>
+    <option value="1.55">Moderado</option>
+    <option value="1.725">Intenso</option>
+  </select>
+
+  <button onclick="calcular()">Calcular</button>
+</div>
+
+<!-- RESULTADO -->
+<div id="resultado" class="screen">
+  <div class="card" id="resultadoCard"></div>
+
+  <button onclick="mostrarRutina()">Rutina</button>
+  <button onclick="mostrarDieta()">Dieta</button>
+</div>
+
+<!-- RUTINA -->
+<div id="rutina" class="screen">
+  <h3>Rutina</h3>
+  <p>🏠 En casa: sentadillas, planchas, flexiones</p>
+  <p>🏋️ Gimnasio: press, peso muerto, cardio</p
