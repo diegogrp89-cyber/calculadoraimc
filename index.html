@@ -5,52 +5,49 @@
 <title>IMC & Salud</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2ecc71">
-
 <style>
-body{
-  margin:0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background:#f4f6f8;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f4f6f8;
 }
-.app{
-  max-width:420px;
-  margin:auto;
-  background:#fff;
-  min-height:100vh;
+.app {
+  max-width: 420px;
+  margin: auto;
+  background: #fff;
+  min-height: 100vh;
 }
-header{
-  background:#2ecc71;
-  color:#fff;
-  text-align:center;
-  padding:15px;
-  font-weight:bold;
+header {
+  background: #2ecc71;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
 }
-.container{
-  padding:15px;
+.container {
+  padding: 15px;
 }
-input, select, button{
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  border-radius:8px;
-  border:1px solid #ccc;
+input, select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
-button{
-  background:#2ecc71;
-  color:#fff;
-  border:none;
-  font-weight:bold;
+button {
+  background: #2ecc71;
+  color: #fff;
+  border: none;
+  font-weight: bold;
 }
-.hidden{
-  display:none;
+.hidden {
+  display: none;
 }
-.card{
-  background:#f1f1f1;
-  padding:12px;
-  border-radius:10px;
-  margin-top:10px;
+.card {
+  background: #f1f1f1;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 </style>
 </head>
@@ -59,34 +56,24 @@ button{
 <div class="app">
 <header>IMC & Salud</header>
 
-<!-- REGISTRO -->
 <div id="registro" class="container">
   <h3>Registro</h3>
-  <label>Correo o número</label>
-  <input type="text" id="contacto" placeholder="correo o celular">
-  <button onclick="registrar()">Ingresar</button>
+  <input id="contacto" type="text" placeholder="Correo o número">
+  <button id="btnRegistro">Ingresar</button>
 </div>
 
-<!-- DATOS -->
 <div id="datos" class="container hidden">
   <h3>Datos personales</h3>
 
-  <label>Sexo</label>
   <select id="sexo">
     <option value="h">Hombre</option>
     <option value="m">Mujer</option>
   </select>
 
-  <label>Edad</label>
-  <input type="number" id="edad">
+  <input id="edad" type="number" placeholder="Edad">
+  <input id="peso" type="number" placeholder="Peso (kg)">
+  <input id="talla" type="number" placeholder="Talla (cm)">
 
-  <label>Peso (kg)</label>
-  <input type="number" id="peso">
-
-  <label>Talla (cm)</label>
-  <input type="number" id="talla">
-
-  <label>Actividad física</label>
   <select id="actividad">
     <option value="1.2">Sedentario</option>
     <option value="1.375">Ligero</option>
@@ -94,4 +81,99 @@ button{
     <option value="1.725">Intenso</option>
   </select>
 
-  <button onclick="calcular()">
+  <button id="btnCalcular">Calcular</button>
+</div>
+
+<div id="resultadoPantalla" class="container hidden">
+  <div id="resultado" class="card"></div>
+  <button id="btnRutina">🏋️ Rutina</button>
+  <button id="btnDieta">🥗 Dieta</button>
+</div>
+
+<div id="rutinaPantalla" class="container hidden">
+  <h3>Rutina</h3>
+  <button id="casa">En casa</button>
+  <button id="gym">Gimnasio</button>
+  <div id="rutina" class="card"></div>
+</div>
+
+<div id="dietaPantalla" class="container hidden">
+  <h3>Dieta</h3>
+  <button id="vegana">Vegana</button>
+  <button id="carne">Carnívora</button>
+  <button id="mixta">Mixta</button>
+  <div id="dieta" class="card"></div>
+</div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const registro = document.getElementById("registro");
+  const datos = document.getElementById("datos");
+  const resultadoPantalla = document.getElementById("resultadoPantalla");
+  const rutinaPantalla = document.getElementById("rutinaPantalla");
+  const dietaPantalla = document.getElementById("dietaPantalla");
+
+  const ocultarTodo = () => {
+    registro.classList.add("hidden");
+    datos.classList.add("hidden");
+    resultadoPantalla.classList.add("hidden");
+    rutinaPantalla.classList.add("hidden");
+    dietaPantalla.classList.add("hidden");
+  };
+
+  document.getElementById("btnRegistro").addEventListener("click", () => {
+    const contacto = document.getElementById("contacto").value.trim();
+    if (!contacto) {
+      alert("Ingrese correo o número");
+      return;
+    }
+    localStorage.setItem("usuario", contacto);
+    ocultarTodo();
+    datos.classList.remove("hidden");
+  });
+
+  document.getElementById("btnCalcular").addEventListener("click", () => {
+    const peso = +document.getElementById("peso").value;
+    const talla = +document.getElementById("talla").value;
+    const edad = +document.getElementById("edad").value;
+    const sexo = document.getElementById("sexo").value;
+    const actividad = +document.getElementById("actividad").value;
+
+    if (!peso || !talla || !edad) {
+      alert("Complete todos los datos");
+      return;
+    }
+
+    const imc = (peso / ((talla / 100) ** 2)).toFixed(1);
+    const tmb = sexo === "h"
+      ? (10 * peso) + (6.25 * talla) - (5 * edad) + 5
+      : (10 * peso) + (6.25 * talla) - (5 * edad) - 161;
+
+    const calorias = Math.round(tmb * actividad);
+
+    document.getElementById("resultado").innerHTML =
+      `<b>IMC:</b> ${imc}<br><b>Calorías:</b> ${calorias}`;
+
+    ocultarTodo();
+    resultadoPantalla.classList.remove("hidden");
+  });
+
+  document.getElementById("btnRutina").onclick = () => {
+    ocultarTodo();
+    rutinaPantalla.classList.remove("hidden");
+  };
+
+  document.getElementById("btnDieta").onclick = () => {
+    ocultarTodo();
+    dietaPantalla.classList.remove("hidden");
+  };
+
+  document.getElementById("casa").onclick = () =>
+    document.getElementById("rutina").innerText =
+      "Sentadillas, flexiones, abdominales y caminata 30 min";
+
+  document.getElementById("gym").onclick = () =>
+    document.getElementById("rutina").innerTe
