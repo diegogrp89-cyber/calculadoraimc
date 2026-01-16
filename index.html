@@ -2,121 +2,16 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>IMC & Salud</title>
+<title>Prueba</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-body{
-  margin:0;
-  font-family:-apple-system, BlinkMacSystemFont, sans-serif;
-  background:#f4f6f8;
-}
-.app{
-  max-width:420px;
-  margin:auto;
-  background:#fff;
-  min-height:100vh;
-}
-header{
-  background:#2ecc71;
-  color:#fff;
-  text-align:center;
-  padding:15px;
-  font-weight:bold;
-}
-.container{
-  padding:15px;
-}
-input, select, button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-button{
-  background:#2ecc71;
-  color:#fff;
-  border:none;
-  font-weight:bold;
-}
-.hidden{
-  display:none;
-}
-.card{
-  background:#f1f1f1;
-  padding:12px;
-  border-radius:10px;
-  margin-top:10px;
-}
-</style>
 </head>
 
 <body>
-<div class="app">
-<header>IMC & Salud</header>
+<h1>PRUEBA OK</h1>
 
-<!-- REGISTRO -->
-<div id="pantallaRegistro" class="container">
-  <h3>Registro</h3>
-  <input id="contacto" type="text" placeholder="Correo o número">
-  <button id="btnIngresar" type="button">Ingresar</button>
-</div>
+<button onclick="alert('FUNCIONA')">
+  Presióname
+</button>
 
-<!-- DATOS -->
-<div id="pantallaDatos" class="container hidden">
-  <h3>Datos personales</h3>
-
-  <select id="sexo">
-    <option value="h">Hombre</option>
-    <option value="m">Mujer</option>
-  </select>
-
-  <input id="edad" type="number" placeholder="Edad">
-  <input id="peso" type="number" placeholder="Peso (kg)">
-  <input id="talla" type="number" placeholder="Talla (cm)">
-
-  <select id="actividad">
-    <option value="1.2">Sedentario</option>
-    <option value="1.375">Ligero</option>
-    <option value="1.55">Moderado</option>
-    <option value="1.725">Intenso</option>
-  </select>
-
-  <button id="btnCalcular" type="button">Calcular</button>
-</div>
-
-<!-- RESULTADO -->
-<div id="pantallaResultado" class="container hidden">
-  <div id="resultado" class="card"></div>
-</div>
-
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  const reg = document.getElementById("pantallaRegistro");
-  const datos = document.getElementById("pantallaDatos");
-  const res = document.getElementById("pantallaResultado");
-
-  document.getElementById("btnIngresar").addEventListener("click", () => {
-    const contacto = document.getElementById("contacto").value.trim();
-    if(contacto === ""){
-      alert("Ingrese correo o número");
-      return;
-    }
-
-    // SOLO CAMBIAMOS DE PANTALLA (sin guardar nada)
-    reg.classList.add("hidden");
-    datos.classList.remove("hidden");
-  });
-
-  document.getElementById("btnCalcular").addEventListener("click", () => {
-    const peso = +pesoInput.value;
-    const talla = +tallaInput.value;
-    const edad = +edadInput.value;
-    const sexo = sexoInput.value;
-    const actividad = +actividadInput.value;
-
-    if(
+</body>
+</html>
